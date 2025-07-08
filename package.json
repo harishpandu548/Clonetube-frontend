@@ -19,7 +19,6 @@
     "react-hot-toast": "^2.5.2",
     "react-player": "^3.0.0",
     "react-router-dom": "^7.6.3",
-    "react-use-navigate": "^0.1.1",
     "tailwindcss": "^4.1.11"
   },
   "devDependencies": {
