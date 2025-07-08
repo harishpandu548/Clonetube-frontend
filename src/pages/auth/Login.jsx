@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "../../axios";
 import { useContext } from "react";
 import Authcontext from "../../authcontextapi/Authcontext";
 
@@ -18,7 +18,7 @@ function Login() {
         email: email,
         password: password,
       };
-      const res = await axios.post("/users/login", playload,{
+      const res = await axios.post("https://clonetube-clone-of-yt-backend.onrender.com/api/v1/users/login", playload,{
         withCredentials: true,
       });
       setuser(res.data.data.user)
