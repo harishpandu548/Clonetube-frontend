@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useContext } from "react";
-import axios from "axios";
+import axios from "../axios";
 import Sidebar from "../components/Sidebar";
 import Authcontext from "../authcontextapi/Authcontext";
 

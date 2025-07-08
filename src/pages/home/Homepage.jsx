@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import axios from "axios";
+import axios from "../../axios";
 import Videocard from "./Videocard";
 
 function Homepage() {

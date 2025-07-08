@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axios from "../axios";
 
 function SubscribeButton({ channelId }) {
   const [subscribed, setsubscribed] = useState(false);
