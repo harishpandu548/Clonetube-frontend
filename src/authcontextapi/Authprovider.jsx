@@ -1,6 +1,6 @@
 import React,{useEffect,useState} from 'react'
 import axios from "../axios"
-import Authcontext from './Authcontext'
+import Authcontext from "./Authcontext"
 
 function Authprovider({children}) {
     const [user,setuser]=useState(null)
