@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import axios from "../pages/home/axios";
+import axios from "../axios";
 import { Link } from 'react-router-dom';
 
 function WatchHistory() {

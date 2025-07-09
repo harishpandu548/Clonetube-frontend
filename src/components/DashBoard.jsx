@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect, useContext } from "react";
-import axios from "../pages/home/axios";
+import axios from "../axios";
 import Authcontext from "../authcontextapi/Authcontext";
 
 function Dashboard() {
