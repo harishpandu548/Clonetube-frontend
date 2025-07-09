@@ -9,7 +9,7 @@ function Login() {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const navigate = useNavigate();
-  const {setuser}=useContext(Authcontext)
+  const { setuser } = useContext(Authcontext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,15 +18,28 @@ function Login() {
         email: email,
         password: password,
       };
-      const res = await axios.post("https://clonetube-clone-of-yt-backend.onrender.com/api/v1/users/login", playload,{
-        withCredentials: true,
-      });
-      setuser(res.data.data.user)
+      const res = await axios.post(
+        "https://clonetube-clone-of-yt-backend.onrender.com/api/v1/users/login",
+        playload,
+        {
+          withCredentials: true,
+        }
+      );
+      setuser(res.data.data.user);
       navigate("/");
     } catch (error) {
       console.log("login error", error);
     }
   };
+
+  useEffect(() => {
+    axios.get(
+      "https://clonetube-clone-of-yt-backend.onrender.com/test-cookie",
+      {
+        withCredentials: true,
+      }
+    );
+  }, []);
   return (
     <div className="max-w-md mx-auto mt-10 p-4 shadow rounded">
       <h2 className="text-2xl font-bold mb-4">Login</h2>
