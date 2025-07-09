@@ -32,14 +32,7 @@ function Login() {
     }
   };
 
-  useEffect(() => {
-    axios.get(
-      "https://clonetube-clone-of-yt-backend.onrender.com/test-cookie",
-      {
-        withCredentials: true,
-      }
-    );
-  }, []);
+
   return (
     <div className="max-w-md mx-auto mt-10 p-4 shadow rounded">
       <h2 className="text-2xl font-bold mb-4">Login</h2>
