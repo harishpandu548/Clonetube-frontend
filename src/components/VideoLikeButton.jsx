@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../axios';
 import toast, { Toaster } from 'react-hot-toast';
-import { ThumbsUp, ThumbsDown } from 'lucide-react';
+
 
 function VideoLikeButton({ videoId }) {
   const [liked, setliked] = useState(false);
@@ -55,7 +55,7 @@ function VideoLikeButton({ videoId }) {
             : 'bg-gray-200 text-gray-700 dark:bg-gray-800 dark:text-gray-300'
         } hover:scale-105`}
       >
-        {liked ? <ThumbsUp size={18} /> : <ThumbsDown size={18} />}
+        {liked ?<div>👍</div> : <div>👎</div>}
         <span className="text-sm">{liked ? 'Liked' : 'Like'}</span>
       </button>
       <span className="text-sm text-gray-600 dark:text-gray-400">{likecount}</span>
