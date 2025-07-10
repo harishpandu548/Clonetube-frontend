@@ -25,7 +25,7 @@ function Comment({ videoId }) {
     if (!newcomment.trim()) return;
     try {
       await axios.post(
-        `/api/v1/comments/${videoId}`,
+        `/comments/${videoId}`,
         { content: newcomment },
         { withCredentials: true }
       );
