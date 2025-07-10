@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../axios';
 import toast, { Toaster } from 'react-hot-toast';
+import { ThumbsUp, ThumbsDown } from 'lucide-react';
 
 function VideoLikeButton({ videoId }) {
   const [liked, setliked] = useState(false);
@@ -27,16 +28,16 @@ function VideoLikeButton({ videoId }) {
         });
         setliked(false);
         setlikecount((prev) => prev - 1);
-        toast.success('Video unliked');
+        toast.success('Unliked the video');
       } else {
         await axios.post(`/likes/video/${videoId}`, {}, { withCredentials: true });
         setliked(true);
         setlikecount((prev) => prev + 1);
-        toast.success('Video liked!');
+        toast.success('Liked the video');
       }
     } catch (error) {
       console.log('like error', error);
-      toast.error('Error at liking video');
+      toast.error('Error while updating like');
     }
   };
 
@@ -45,14 +46,19 @@ function VideoLikeButton({ videoId }) {
   }, [videoId]);
 
   return (
-    <div className="flex items-center gap-2 mt-2">
+    <div className="flex items-center gap-3 mt-4">
       <button
-        className={`text-xl ${liked ? 'text-red-500' : 'text-gray-600 dark:text-gray-300'}`}
         onClick={toggleLike}
+        className={`flex items-center gap-1 px-3 py-1 rounded-full transition duration-200 ${
+          liked
+            ? 'bg-red-100 text-red-600 dark:bg-red-800/20 dark:text-red-400'
+            : 'bg-gray-200 text-gray-700 dark:bg-gray-800 dark:text-gray-300'
+        } hover:scale-105`}
       >
-        {liked ? '👍' : '👎'}
+        {liked ? <ThumbsUp size={18} /> : <ThumbsDown size={18} />}
+        <span className="text-sm">{liked ? 'Liked' : 'Like'}</span>
       </button>
-      <span className="text-sm text-gray-600 dark:text-gray-300">{likecount}</span>
+      <span className="text-sm text-gray-600 dark:text-gray-400">{likecount}</span>
       <Toaster position="top-right" />
     </div>
   );

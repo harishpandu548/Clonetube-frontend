@@ -39,11 +39,17 @@ function CommentLikeButton({ commentId }) {
   }, [commentId]);
 
   return (
-    <div className="flex items-center gap-1 text-sm text-red-500 dark:text-red-400">
-      <button onClick={togglecommentlike}>
-        {commentliked ? <div>👍</div> : <div>👎</div>}
-      </button>
-    </div>
+    <button
+      onClick={togglecommentlike}
+      className={`text-xl transition-transform hover:scale-110 ${
+        commentliked
+          ? 'text-red-500 dark:text-red-400'
+          : 'text-gray-500 dark:text-gray-400'
+      }`}
+      title={commentliked ? 'Unlike comment' : 'Like comment'}
+    >
+      {commentliked ? '👍' : '👍🏻'}
+    </button>
   );
 }
 

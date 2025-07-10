@@ -1,5 +1,4 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from "../axios";
 import { Link } from 'react-router-dom';
 
@@ -17,40 +16,42 @@ function WatchHistory() {
   }, []);
 
   return (
-    <div className="max-w-5xl mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Watch History</h2>
+    <div className="max-w-6xl mx-auto p-4 min-h-screen">
+      <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
+        Your Watch History
+      </h2>
 
       {history.length === 0 ? (
-        <div>
-          <p className="text-gray-500 dark:text-gray-400">You have not watched any video yet</p>
+        <div className="text-center mt-10 text-gray-500 dark:text-gray-400 text-lg">
+          You haven’t watched any videos yet.
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {history.map((video) => (
-            <div key={video._id}>
-              <Link to={`/video/${video._id}`}>
-                <div className="border rounded-xl p-2 shadow hover:shadow-md transition bg-white dark:bg-gray-800 dark:border-gray-700">
-                  <video
-                    className="w-full h-40 object-cover rounded-md"
-                    src={video.videofile}
-                    controls
-                  ></video>
-                  <h3 className="text-lg font-semibold mt-2 line-clamp-1 text-gray-800 dark:text-white">
+            <Link key={video._id} to={`/video/${video._id}`}>
+              <div className="rounded-xl overflow-hidden shadow hover:shadow-lg transition duration-200 bg-white dark:bg-neutral-900 border border-gray-200 dark:border-gray-800">
+                <video
+                  className="w-full h-48 object-cover"
+                  src={video.videofile}
+                  controls
+                />
+                <div className="p-3">
+                  <h3 className="text-lg font-semibold line-clamp-1 text-gray-900 dark:text-white">
                     {video.title}
                   </h3>
-                  <div className="flex items-center gap-2 mt-1">
+                  <div className="flex items-center gap-3 mt-3">
                     <img
-                      className="w-6 h-6 rounded-full object-cover"
                       src={video.owner.avatar}
                       alt="profile"
+                      className="w-8 h-8 rounded-full object-cover"
                     />
                     <span className="text-sm text-gray-600 dark:text-gray-300">
                       {video.owner.username}
                     </span>
                   </div>
                 </div>
-              </Link>
-            </div>
+              </div>
+            </Link>
           ))}
         </div>
       )}

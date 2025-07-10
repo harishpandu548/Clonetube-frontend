@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import React from "react";
-import axios from "../axios"
+import axios from "../axios";
 import { useNavigate } from "react-router-dom";
 
 function CreatePlaylist() {
@@ -38,42 +38,51 @@ function CreatePlaylist() {
   };
 
   return (
-    <div className="max-w-xl mx-auto p-4 bg-white dark:bg-gray-900 text-black dark:text-white rounded">
-      <h2 className="text-2xl font-bold mb-4">Create Playlist</h2>
-      <form className="space-y-4" onSubmit={handleSubmit}>
+    <div className="max-w-2xl mx-auto mt-10 p-6 bg-white dark:bg-gray-900 text-gray-900 dark:text-white rounded-xl shadow-md">
+      <h2 className="text-3xl font-bold mb-6 text-center text-red-600 dark:text-red-400">
+        🎵 Create a Playlist
+      </h2>
+
+      <form className="space-y-6" onSubmit={handleSubmit}>
         <input
-          className="w-full border dark:border-gray-700 p-2 rounded bg-white dark:bg-gray-800 text-black dark:text-white"
+          className="w-full border border-gray-300 dark:border-gray-700 p-3 rounded-lg bg-white dark:bg-gray-800 placeholder-gray-500 dark:placeholder-gray-400"
           type="text"
-          placeholder="Enter name of the playlist"
+          placeholder="Playlist Name"
           value={name}
           onChange={(e) => setname(e.target.value)}
+          required
         />
+
         <textarea
-          className="w-full border dark:border-gray-700 p-2 rounded bg-white dark:bg-gray-800 text-black dark:text-white"
-          placeholder="Description of your playlist"
+          className="w-full border border-gray-300 dark:border-gray-700 p-3 rounded-lg bg-white dark:bg-gray-800 placeholder-gray-500 dark:placeholder-gray-400"
+          placeholder="Playlist Description"
           value={description}
           onChange={(e) => setdescription(e.target.value)}
-        ></textarea>
+          rows={3}
+        />
 
-        <p className="font-semibold mb-2">Select videos:</p>
-        <div className="space-y-2 max-h-48 overflow-y-auto border dark:border-gray-700 p-2 rounded bg-white dark:bg-gray-800">
-          {allvideos.map((video) => (
-            <label className="flex items-center gap-2" key={video._id}>
-              <input
-                type="checkbox"
-                checked={videos.includes(video._id)}
-                onChange={() => togglevideo(video._id)}
-              />
-              <span>{video.title}</span>
-            </label>
-          ))}
+        <div>
+          <p className="font-semibold mb-2 text-lg">Select videos:</p>
+          <div className="max-h-60 overflow-y-auto space-y-2 border border-gray-300 dark:border-gray-700 rounded-lg p-3 bg-gray-50 dark:bg-gray-800 scrollbar-thin scrollbar-thumb-gray-400 dark:scrollbar-thumb-gray-600">
+            {allvideos.map((video) => (
+              <label key={video._id} className="flex items-center gap-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={videos.includes(video._id)}
+                  onChange={() => togglevideo(video._id)}
+                  className="accent-red-600"
+                />
+                <span className="text-sm">{video.title}</span>
+              </label>
+            ))}
+          </div>
         </div>
 
         <button
           type="submit"
-          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition"
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 rounded-lg text-lg transition"
         >
-          Create Playlist
+          ✅ Create Playlist
         </button>
       </form>
     </div>

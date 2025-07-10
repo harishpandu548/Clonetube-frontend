@@ -8,19 +8,53 @@ function Sidebar({ isOpen, onClose }) {
         isOpen ? "translate-x-0" : "-translate-x-full"
       }`}
     >
-      <div className="p-4 border-b dark:border-gray-700 flex justify-between items-center">
-        <h2 className="text-xl font-bold">Clonetube</h2>
-        <button onClick={onClose} className="text-lg">✖</button>
+      <div className="p-4 border-b border-gray-300 dark:border-gray-700 flex justify-between items-center">
+        <h2 className="text-xl font-bold tracking-wide text-red-600 dark:text-red-400">CloneTube</h2>
+        <button
+          onClick={onClose}
+          className="text-xl hover:text-red-500 dark:hover:text-red-400"
+          aria-label="Close Sidebar"
+        >
+          ✖
+        </button>
       </div>
 
-      <nav className="p-4 space-y-4 text-lg">
-        <button className="block hover:text-blue-600 dark:hover:text-blue-400" onClick={onClose}>
-          <Link to="/">🏠 Home</Link>
-        </button>
-        <button className="block hover:text-blue-600 dark:hover:text-blue-400" onClick={onClose}>
-          <Link to="/uploadvid">📤 Upload</Link>
-        </button>
-
+      <nav className="p-4 space-y-3 text-base font-medium">
+        <Link
+          to="/"
+          onClick={onClose}
+          className="block py-2 px-3 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+        >
+          🏠 Home
+        </Link>
+        <Link
+          to="/uploadvid"
+          onClick={onClose}
+          className="block py-2 px-3 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+        >
+          📤 Upload
+        </Link>
+        <Link
+          to="/dashboard"
+          onClick={onClose}
+          className="block py-2 px-3 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+        >
+          📊 Dashboard
+        </Link>
+        <Link
+          to="/createplaylist"
+          onClick={onClose}
+          className="block py-2 px-3 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+        >
+          🎵 Create Playlist
+        </Link>
+        <Link
+          to="/watchhistory"
+          onClick={onClose}
+          className="block py-2 px-3 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+        >
+          📺 Watch History
+        </Link>
       </nav>
     </div>
   );
