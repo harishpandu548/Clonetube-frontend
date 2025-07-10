@@ -1,5 +1,4 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "../../axios";
 import Videocard from "./Videocard";
 
@@ -26,15 +25,15 @@ function Homepage() {
 
   if (loading)
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-4">
-        {Array.from({ length: 6 }).map((_, idx) => (
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-4 py-6">
+        {Array.from({ length: 8 }).map((_, idx) => (
           <div key={idx} className="animate-pulse space-y-4">
-            <div className="w-full h-48 bg-gray-300 dark:bg-gray-700 rounded-xl"></div>
+            <div className="w-full h-48 bg-neutral-300 dark:bg-neutral-700 rounded-xl"></div>
             <div className="flex gap-4 items-center">
-              <div className="w-10 h-10 bg-gray-300 dark:bg-gray-700 rounded-full"></div>
+              <div className="w-10 h-10 bg-neutral-300 dark:bg-neutral-700 rounded-full"></div>
               <div className="flex-1 space-y-2">
-                <div className="w-24 h-4 bg-gray-300 dark:bg-gray-600 rounded"></div>
-                <div className="w-32 h-4 bg-gray-300 dark:bg-gray-600 rounded"></div>
+                <div className="w-24 h-4 bg-neutral-300 dark:bg-neutral-600 rounded"></div>
+                <div className="w-32 h-4 bg-neutral-300 dark:bg-neutral-600 rounded"></div>
               </div>
             </div>
           </div>
@@ -43,10 +42,12 @@ function Homepage() {
     );
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-gray-200 dark:bg-gray-900">
-      {videos.map((video) => (
-        <Videocard key={video._id} video={video} />
-      ))}
+    <div className="min-h-screen bg-white dark:bg-black px-4 py-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {videos.map((video) => (
+          <Videocard key={video._id} video={video} />
+        ))}
+      </div>
     </div>
   );
 }
