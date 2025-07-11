@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "../axios";
+// import axios from "axios"
+
 import toast, { Toaster } from "react-hot-toast";
 
 function SubscribeButton({ channelId }) {
@@ -9,6 +11,7 @@ function SubscribeButton({ channelId }) {
   const fetchstatus = async () => {
     try {
       const res = await axios.get(`/subscriptions/status/${channelId}`, {
+      // const res = await axios.get(`/api/v1/subscriptions/status/${channelId}`, {
         withCredentials: true,
       });
       setsubscribed(res.data.subscriber);
@@ -21,6 +24,7 @@ function SubscribeButton({ channelId }) {
   const fetchcount = async () => {
     try {
       const res = await axios.get(`/subscriptions/count/${channelId}`, {
+      // const res = await axios.get(`/api/v1/subscriptions/count/${channelId}`, {
         withCredentials: true,
       });
       setcount(res.data.subsciberCount);
@@ -34,12 +38,14 @@ function SubscribeButton({ channelId }) {
     try {
       if (subscribed) {
         await axios.delete(`/subscriptions/channel/${channelId}`, {
+        // await axios.delete(`/api/v1/subscriptions/channel/${channelId}`, {
           withCredentials: true,
         });
         setsubscribed(false);
         toast.success("Unsubscribed");
       } else {
         await axios.post(`/subscriptions/channel/${channelId}`, {}, {
+        // await axios.post(`/api/v1/subscriptions/channel/${channelId}`, {}, {
           withCredentials: true,
         });
         setsubscribed(true);

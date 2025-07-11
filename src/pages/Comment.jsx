@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "../axios";
+// import axios from "axios"
 import CommentLikeButton from "../components/CommentLikeButton";
 
 function Comment({ videoId }) {
@@ -9,6 +10,7 @@ function Comment({ videoId }) {
   const fetchcomments = async () => {
     try {
       const res = await axios.get(`/comments/${videoId}`);
+      // const res = await axios.get(`/api/v1/comments/${videoId}`);
       setcomments(res.data.data);
     } catch (error) {
       console.log(error, "fetch comments failed");
@@ -25,6 +27,7 @@ function Comment({ videoId }) {
     try {
       await axios.post(
         `/comments/${videoId}`,
+        // `/api/v1/comments/${videoId}`,
         { content: newcomment },
         { withCredentials: true }
       );

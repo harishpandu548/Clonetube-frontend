@@ -1,6 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "../../axios";
+// import axios from "axios";
+
 import Comment from "../Comment";
 import VideoLikeButton from "../../components/VideoLikeButton";
 import SubscribeButton from "../../components/SubscribeButton";
@@ -12,6 +14,7 @@ function Video() {
   useEffect(() => {
     axios
       .get(`/videos/${id}`)
+      // .get(`/api/v1/videos/${id}`)
       .then((res) => setvideo(res.data.data))
       .catch((err) => console.log(err));
   }, [id]);
@@ -19,11 +22,18 @@ function Video() {
   const handleplay = () => {
     axios
       .patch(`/videos/views/${id}`, {}, { withCredentials: true })
+      // .patch(`/api/v1/videos/views/${id}`, {}, { withCredentials: true })
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };
 
-  if (!video) return <p className="p-4 text-center text-white">Loading...</p>;
+  if (!video) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-500 dark:border-white border-solid"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-white dark:bg-black px-4 py-6 text-black dark:text-white">

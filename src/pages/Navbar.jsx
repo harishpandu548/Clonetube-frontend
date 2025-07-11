@@ -1,6 +1,8 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useState, useContext } from "react";
 import axios from "../axios";
+// import axios from "axios";
+
 import Sidebar from "../components/Sidebar";
 import Authcontext from "../authcontextapi/Authcontext";
 
@@ -12,8 +14,9 @@ function Navbar({ darkMode, setDarkMode }) {
   const handleLogout = async () => {
     try {
       await axios.post("/users/logout", { withCredentials: true });
+      // await axios.post("/api/v1/users/logout", { withCredentials: true });
       setuser(null);
-      navigate("/login");
+      navigate("/");
     } catch (error) {
       console.log(error, "logout failed");
     }
@@ -24,54 +27,87 @@ function Navbar({ darkMode, setDarkMode }) {
       <nav className="w-full bg-white dark:bg-black border-b border-gray-200 dark:border-gray-700 shadow-sm z-50 px-4 py-3">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <button
-              onClick={() => setIsSidebarOpen(true)}
-              className="text-2xl text-black dark:text-white"
-            >
-              ☰
-            </button>
+            {user && (
+              <button
+                onClick={() => setIsSidebarOpen(true)}
+                className="text-2xl text-black dark:text-white"
+              >
+                ☰
+              </button>
+            )}
 
-            <Link
-              to="/"
-              className="text-xl sm:text-2xl font-bold text-black dark:text-white tracking-wide"
-            >
-              CloneTube
-            </Link>
+            <div className="flex flex-col items-center">
+              <Link
+                to="/"
+                className="flex items-center gap-2 sm:gap-3 text-xl sm:text-2xl font-bold text-black dark:text-white tracking-wide"
+              >
+                <img
+                  src="/Pikachu1.png"
+                  alt="Sleeping Pikachu"
+                  className="w-10 sm:w-12 h-auto drop-shadow-md hover:animate-bounce"
+                />
+
+                <span className="hover:text-red-500 transition duration-300">
+                  CloneTube
+                </span>
+              </Link>
+            </div>
           </div>
 
           <div className="flex items-center gap-4 flex-wrap">
             {user ? (
               <>
-                <Link
+                <NavLink
                   to="/"
-                  className="hover:text-blue-600 dark:hover:text-blue-400 text-sm font-medium"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-blue-400 font-semibold border-b-2 border-blue-500 pb-1"
+                      : "hover:text-blue-400 transition"
+                  }
                 >
                   Home
-                </Link>
-                <Link
+                </NavLink>
+                <NavLink
                   to="/dashboard"
-                  className="hover:text-blue-600 dark:hover:text-blue-400 text-sm font-medium"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-blue-400 font-semibold border-b-2 border-blue-500 pb-1"
+                      : "hover:text-blue-400 transition"
+                  }
                 >
                   Dashboard
-                </Link>
-                <Link
+                </NavLink>
+
+                <NavLink
                   to="/uploadvid"
-                  className="hover:text-blue-600 dark:hover:text-blue-400 text-sm font-medium"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-blue-400 font-semibold border-b-2 border-blue-500 pb-1"
+                      : "hover:text-blue-400 transition"
+                  }
                 >
                   Upload
-                </Link>
-                <Link
+                </NavLink>
+                <NavLink
                   to="/createplaylist"
-                  className="hover:text-blue-600 dark:hover:text-blue-400 text-sm font-medium"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-blue-400 font-semibold border-b-2 border-blue-500 pb-1"
+                      : "hover:text-blue-400 transition"
+                  }
                 >
                   Playlist
-                </Link>
-                <Link
+                </NavLink>
+                <NavLink
                   to="/watchhistory"
-                  className="hover:text-blue-600 dark:hover:text-blue-400 text-sm font-medium"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-blue-400 font-semibold border-b-2 border-blue-500 pb-1"
+                      : "hover:text-blue-400 transition"
+                  }
                 >
                   History
-                </Link>
+                </NavLink>
                 <button
                   onClick={handleLogout}
                   className="text-red-500 hover:text-red-400 text-sm font-medium"
@@ -86,18 +122,36 @@ function Navbar({ darkMode, setDarkMode }) {
               </>
             ) : (
               <>
-                <Link
+                <NavLink
+                  to="/"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-blue-400 font-semibold border-b-2 border-blue-500 pb-1"
+                      : "hover:text-blue-400 transition"
+                  }
+                >
+                  Videos
+                </NavLink>
+                <NavLink
                   to="/login"
-                  className="hover:text-blue-600 dark:hover:text-blue-400 text-sm font-medium"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-blue-400 font-semibold border-b-2 border-blue-500 pb-1"
+                      : "hover:text-blue-400 transition"
+                  }
                 >
                   Login
-                </Link>
-                <Link
+                </NavLink>
+                <NavLink
                   to="/signup"
-                  className="hover:text-blue-600 dark:hover:text-blue-400 text-sm font-medium"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-blue-400 font-semibold border-b-2 border-blue-500 pb-1"
+                      : "hover:text-blue-400 transition"
+                  }
                 >
                   Signup
-                </Link>
+                </NavLink>
               </>
             )}
 

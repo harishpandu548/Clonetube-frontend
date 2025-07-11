@@ -1,16 +1,21 @@
 import React, { useState } from "react";
 import axios from "../axios";
+// import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 
 function Uploadvid() {
   const [title, settitle] = useState("");
   const [description, setdescription] = useState("");
   const [videofile, setvideofile] = useState(null);
   const [thumbnail, setthumbnail] = useState(null);
+  const [loading, setloading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setloading(true);
     if (!title || !description || !videofile || !thumbnail)
       return alert("Please fill all the fields");
 
@@ -22,16 +27,26 @@ function Uploadvid() {
       playload.append("thumbnail", thumbnail);
 
       const res = await axios.post("/videos", playload, {
+      // const res = await axios.post("/api/v1/videos", playload, {
         withCredentials: true,
         headers: {
           "Content-Type": "multipart/form-data",
         },
+        onUploadProgress: (progressEvent) => {
+          const percent = Math.round(
+            (progressEvent.loaded * 100) / progressEvent.total
+          );
+          setUploadProgress(percent);
+        },
       });
-
+      toast.success("Video uploaded successfully");
       navigate(`/video/${res.data.data._id}`);
     } catch (error) {
       console.log("upload failed", error);
       alert("Upload failed");
+      toast.error("Upload failed");
+    } finally {
+      setloading(false);
     }
   };
 
@@ -57,26 +72,47 @@ function Uploadvid() {
             value={description}
             onChange={(e) => setdescription(e.target.value)}
           ></textarea>
+          <label className="text-gray-800  dark:text-gray-100 font-medium">
+            Upload Video:
+          </label>
           <input
             type="file"
             accept="video/*"
-            className="block w-full text-sm text-gray-900 dark:text-white file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700"
+            className="block -mt-4 w-full text-sm text-gray-900 dark:text-white file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700"
             onChange={(e) => setvideofile(e.target.files[0])}
           />
+          <label className="text-gray-800  dark:text-gray-100 font-medium">
+            Upload Image:
+          </label>
           <input
             type="file"
             accept="image/*"
-            className="block w-full text-sm text-gray-900 dark:text-white file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700"
+            className="block -mt-4 w-full text-sm text-gray-900 dark:text-white file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700"
             onChange={(e) => setthumbnail(e.target.files[0])}
           />
           <button
             type="submit"
-            className="bg-red-600 hover:bg-red-700 text-white py-3 px-6 rounded-xl font-semibold transition"
+            className={`bg-red-600 hover:bg-red-700 text-white py-3 px-6 rounded-xl font-semibold transition ${
+              loading ? "opacity-50 cursor-not-allowed" : ""
+            }`}
           >
             Upload Video
           </button>
+         
         </form>
+         {uploadProgress > 0 && uploadProgress < 100 && (
+            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4 mt-4">
+              <div
+                className="bg-blue-600 h-4 rounded-full transition-all duration-300 ease-in-out"
+                style={{ width: `${uploadProgress}%` }}
+              ></div>
+              <p className="text-sm mt-1 text-center text-gray-700 dark:text-gray-300">
+                Uploading... {uploadProgress}%
+              </p>
+            </div>
+          )}
       </div>
+      <Toaster position="top-right" />
     </div>
   );
 }

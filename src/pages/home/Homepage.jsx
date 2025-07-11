@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "../../axios";
+// import axios from "axios"
+import toast,{Toaster} from "react-hot-toast";
+
+
 import Videocard from "./Videocard";
 
 function Homepage() {
@@ -9,6 +13,7 @@ function Homepage() {
   useEffect(() => {
     axios
       .get("/videos")
+      // .get("/api/v1/videos")
       .then((res) => {
         setvideos(res.data.data);
         setloading(false);
@@ -22,6 +27,13 @@ function Homepage() {
         }
       });
   }, []);
+  useEffect(()=>{
+    if(localStorage.getItem("justloggedIn")==="true"){
+      toast.success("Welcome back User")
+      localStorage.removeItem("justloggedIn")
+    }
+
+  },[])
 
   if (loading)
     return (
@@ -48,6 +60,7 @@ function Homepage() {
           <Videocard key={video._id} video={video} />
         ))}
       </div>
+      <Toaster position="top-right"/>
     </div>
   );
 }

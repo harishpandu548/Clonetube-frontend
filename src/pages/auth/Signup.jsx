@@ -1,6 +1,8 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../../axios";
+// import axios from "axios"
+import toast,{Toaster} from "react-hot-toast";
 import Authcontext from "../../authcontextapi/Authcontext";
 
 function Signup() {
@@ -10,11 +12,13 @@ function Signup() {
   const [password, setpassword] = useState("");
   const [avatar, setavatar] = useState(null);
   const [coverimage, setcoverimage] = useState(null);
+  const [loading,setloading]=useState(false)
   const navigate = useNavigate();
   const { setuser } = useContext(Authcontext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setloading(true)
     try {
       const playload = new FormData();
       playload.append("email", email);
@@ -25,16 +29,25 @@ function Signup() {
       playload.append("coverimage", coverimage);
 
       const res = await axios.post("/users/register", playload, {
+      // const res = await axios.post("/api/v1/users/register", playload, {
         withCredentials: true,
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
       setuser(res.data.data);
-      navigate("/");
+      toast.success("SignUp successfully")
+      setTimeout(()=>{
+        navigate("/");
+      },1000)
+
     } catch (error) {
       console.log(error, "Signup failed");
+      toast.error("SignUp failed")
       alert("Signup failed. Try again.");
+    }
+    finally{
+      setloading(false)
     }
   };
 
@@ -78,30 +91,37 @@ function Signup() {
             onChange={(e) => setpassword(e.target.value)}
             required
           />
+           <label className="text-gray-800  dark:text-gray-100 font-medium">
+            Upload AvatarImage:
+          </label>
           <input
             type="file"
             name="avatar"
             accept="image/*"
             onChange={(e) => setavatar(e.target.files[0])}
             required
-            className="block w-full text-sm text-gray-900 dark:text-white file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700"
+            className="block w-full -mt-4 text-sm text-gray-900 dark:text-white file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700"
           />
+          <label className="text-gray-800  dark:text-gray-100 font-medium">
+            Upload CoverImage:
+          </label>
           <input
             type="file"
             name="coverimage"
             accept="image/*"
             onChange={(e) => setcoverimage(e.target.files[0])}
             required
-            className="block w-full text-sm text-gray-900 dark:text-white file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700"
+            className="block w-full -mt-4 text-sm text-gray-900 dark:text-white file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700"
           />
           <button
             type="submit"
-            className="bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-xl font-semibold transition"
+            className={`bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-xl font-semibold transition ${loading?"opacity-50 cursor-not-allowed":""}`}
           >
             Sign up
           </button>
         </form>
       </div>
+      <Toaster position="top-right"/>
     </div>
   );
 }

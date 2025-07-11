@@ -1,6 +1,6 @@
 import "./App.css";
-import { useState, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { useState, useEffect, useContext } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 import Navbar from "./pages/Navbar";
 import Homepage from "./pages/home/Homepage";
@@ -11,8 +11,12 @@ import Uploadvid from "./pages/Uploadvid";
 import DashBoard from "./components/DashBoard";
 import CreatePlaylist from "./components/CreatePlaylist";
 import WatchHistory from "./components/WatchHistory";
+import Authprovider from "./authcontextapi/Authprovider";
+import Authcontext from "./authcontextapi/Authcontext";
+import NotFound from "./components/NotFound";
 
 function App() {
+  const { user } = useContext(Authcontext);
   const [darkMode, setDarkMode] = useState(
     localStorage.getItem("theme") === "dark"
   );
@@ -35,12 +39,16 @@ function App() {
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/uploadvid" element={<Uploadvid />} />
-          <Route path="/video/:id" element={<Video />} />
+          <Route
+            path="/video/:id"
+            element={user ? <Video /> : <Navigate to="/login" />}
+          />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/dashboard" element={<DashBoard />} />
           <Route path="/createplaylist" element={<CreatePlaylist />} />
           <Route path="/watchhistory" element={<WatchHistory />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
     </div>
