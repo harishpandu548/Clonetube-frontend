@@ -1,4 +1,5 @@
 import "./App.css";
+// import "./index.css"
 import { useState, useEffect, useContext } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
@@ -11,7 +12,7 @@ import Uploadvid from "./pages/Uploadvid";
 import DashBoard from "./components/DashBoard";
 import CreatePlaylist from "./components/CreatePlaylist";
 import WatchHistory from "./components/WatchHistory";
-import Authprovider from "./authcontextapi/Authprovider";
+// import Authprovider from "./authcontextapi/Authprovider";
 import Authcontext from "./authcontextapi/Authcontext";
 import NotFound from "./components/NotFound";
 
