@@ -18,7 +18,7 @@ function Homepage() {
         if (err.response && err.response.status === 500) {
           alert("Please login to view videos");
         } else {
-          alert("Something went wrong.");
+          alert("Login to view videos.");
         }
       });
   }, []);
