@@ -37,7 +37,8 @@ function Yourvideos() {
     });
     if (result.isConfirmed) {
       try {
-        await axios.delete(`/api/v1/videos/${id}`, { withCredentials: true });
+        await axios.delete(`/videos/${id}`, { withCredentials: true });
+        // await axios.delete(`/api/v1/videos/${id}`, { withCredentials: true });
         setvidoes((prev) => prev.filter((video) => video._id !== id));
       } catch (error) {
         console.log(error, "error at video deletion");
