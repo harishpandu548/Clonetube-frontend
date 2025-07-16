@@ -3,6 +3,7 @@ import axios from "../axios";
 // import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
+import UploadOverlay from "../components/UploadOverlay";
 
 function Uploadvid() {
   const [title, settitle] = useState("");
@@ -10,12 +11,13 @@ function Uploadvid() {
   const [videofile, setvideofile] = useState(null);
   const [thumbnail, setthumbnail] = useState(null);
   const [loading, setloading] = useState(false);
-  const [uploadProgress, setUploadProgress] = useState(0);
+  const [uploading, setuploading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setloading(true);
+    setuploading(true);
     if (!title || !description || !videofile || !thumbnail)
       return alert("Please fill all the fields");
 
@@ -32,12 +34,6 @@ function Uploadvid() {
         headers: {
           "Content-Type": "multipart/form-data",
         },
-        onUploadProgress: (progressEvent) => {
-          const percent = Math.round(
-            (progressEvent.loaded * 100) / progressEvent.total
-          );
-          setUploadProgress(percent);
-        },
       });
       toast.success("Video uploaded successfully");
       navigate(`/video/${res.data.data._id}`);
@@ -47,6 +43,7 @@ function Uploadvid() {
       toast.error("Upload failed");
     } finally {
       setloading(false);
+      setuploading(false);
     }
   };
 
@@ -98,19 +95,8 @@ function Uploadvid() {
           >
             Upload Video
           </button>
-         
         </form>
-         {uploadProgress > 0 && uploadProgress < 100 && (
-            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4 mt-4">
-              <div
-                className="bg-blue-600 h-4 rounded-full transition-all duration-300 ease-in-out"
-                style={{ width: `${uploadProgress}%` }}
-              ></div>
-              <p className="text-sm mt-1 text-center text-gray-700 dark:text-gray-300">
-                Uploading... {uploadProgress}%
-              </p>
-            </div>
-          )}
+        {uploading && <UploadOverlay />}
       </div>
       <Toaster position="top-right" />
     </div>

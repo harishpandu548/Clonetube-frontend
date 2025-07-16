@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react";
 import axios from "../axios";
 // import axios from "axios"
 import CommentLikeButton from "../components/CommentLikeButton";
+import Authcontext from "../authcontextapi/Authcontext";
 
 function Comment({ videoId }) {
   const [comments, setcomments] = useState([]);
   const [newcomment, setnewcomment] = useState("");
+  const { user } = useContext(Authcontext);
+
 
   const fetchcomments = async () => {
     try {
@@ -14,6 +17,16 @@ function Comment({ videoId }) {
       setcomments(res.data.data);
     } catch (error) {
       console.log(error, "fetch comments failed");
+    }
+  };
+    const deletecomment = async (commentId) => {
+    try {
+      await axios.delete(`/api/v1/comments/${commentId}`, {
+        withCredentials: true,
+      });
+      fetchcomments();
+    } catch (error) {
+      console.log("error at comment deletion", error);
     }
   };
 
@@ -40,9 +53,7 @@ function Comment({ videoId }) {
 
   return (
     <div className="mt-8 text-black dark:text-white">
-      <h3 className="text-xl font-semibold mb-6">
-        {comments.length} Comments
-      </h3>
+      <h3 className="text-xl font-semibold mb-6">{comments.length} Comments</h3>
 
       <form className="flex items-center gap-4 mb-8" onSubmit={handleSubmit}>
         <input
@@ -69,11 +80,22 @@ function Comment({ videoId }) {
               <p className="text-sm font-semibold text-gray-800 dark:text-gray-200">
                 {comment.owner.username}
               </p>
-              <div className="flex items-center justify-between bg-gray-100 dark:bg-neutral-800 p-3 rounded-xl shadow-sm">
+              <div className="relative bg-gray-100 dark:bg-neutral-800 p-4 rounded-xl shadow-sm space-y-3">
+                {user && comment.owner._id === user._id && (
+                  <button
+                    onClick={() => deletecomment(comment._id)}
+                    className="absolute top-2 right-2 text-xs text-red-500 hover:text-red-700 border border-red-500 px-2 py-1 rounded-md hover:bg-red-100 dark:hover:bg-red-900 transition"
+                  >
+                     Delete
+                  </button>
+                )}
+
                 <p className="text-gray-900 dark:text-gray-100 text-sm">
                   {comment.content}
                 </p>
-                <CommentLikeButton commentId={comment._id} />
+                <div>
+                  <CommentLikeButton commentId={comment._id} />
+                </div>
               </div>
             </div>
           </div>

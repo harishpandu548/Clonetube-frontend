@@ -6,6 +6,8 @@ import axios from "../../axios";
 import Comment from "../Comment";
 import VideoLikeButton from "../../components/VideoLikeButton";
 import SubscribeButton from "../../components/SubscribeButton";
+import { formatDistanceToNow } from "date-fns";
+
 
 function Video() {
   const { id } = useParams();
@@ -52,7 +54,7 @@ function Video() {
             {video.title}
           </h2>
           <p className="text-sm text-gray-600 dark:text-gray-400">
-            {video.views} views
+            {video.views} views  • {formatDistanceToNow(new Date(video.createdAt), { addSuffix: true })}
           </p>
         </div>
 

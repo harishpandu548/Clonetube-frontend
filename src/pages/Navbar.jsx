@@ -5,6 +5,8 @@ import axios from "../axios";
 
 import Sidebar from "../components/Sidebar";
 import Authcontext from "../authcontextapi/Authcontext";
+import Swal from "sweetalert2";
+import AvatarModal from "./AvatarModal";
 
 function Navbar({ darkMode, setDarkMode }) {
   const { user, setuser } = useContext(Authcontext);
@@ -12,13 +14,26 @@ function Navbar({ darkMode, setDarkMode }) {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
-    try {
-      await axios.post("/users/logout", { withCredentials: true });
-      // await axios.post("/api/v1/users/logout", { withCredentials: true });
-      setuser(null);
-      navigate("/");
-    } catch (error) {
-      console.log(error, "logout failed");
+    const result = await Swal.fire({
+      title: "Are you sure",
+      text: "You will be logged out",
+      icon: "warning",
+      background: "#1f2937",
+      color: "#fff",
+      showCancelButton: true,
+      confirmButtonColor: "blue",
+      cancelButtonColor: "red",
+      confirmButtonText: "Yes,logout",
+    });
+    if (result.isConfirmed) {
+      try {
+        await axios.post("/users/logout", { withCredentials: true });
+        // await axios.post("/api/v1/users/logout", { withCredentials: true });
+        setuser(null);
+        navigate("/");
+      } catch (error) {
+        console.log(error, "logout failed");
+      }
     }
   };
 
@@ -108,17 +123,20 @@ function Navbar({ darkMode, setDarkMode }) {
                 >
                   History
                 </NavLink>
+                <NavLink to="/yourvideos" className={({isActive})=>isActive?"text-blue-400 font-semibold border-b-2 border-blue-500 pb-1"
+                      : "hover:text-blue-400 transition"}>Your Videos</NavLink>
                 <button
                   onClick={handleLogout}
                   className="text-red-500 hover:text-red-400 text-sm font-medium"
                 >
                   Logout
                 </button>
-                <img
+                {/* <img
                   src={user.avatar}
                   alt="Profile"
                   className="w-9 h-9 rounded-full object-cover border border-gray-300 dark:border-white"
-                />
+                /> */}
+                <AvatarModal user={user}/>
               </>
             ) : (
               <>

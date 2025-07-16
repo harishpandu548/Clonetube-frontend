@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { formatDistanceToNow } from "date-fns";
+
 
 // helper to format seconds
 function formatDuration(seconds) {
@@ -39,7 +41,7 @@ function Videocard({ video }) {
               {video.title}
             </h3>
             <div className="text-xs text-gray-600 dark:text-gray-400 mt-1">
-              {video.views} views
+              {video.views} views • {formatDistanceToNow(new Date(video.createdAt), { addSuffix: true })}
             </div>
           </div>
         </div>

@@ -13,12 +13,16 @@
     "@tailwindcss/vite": "^4.1.11",
     "axios": "^1.10.0",
     "bootstrap": "^5.3.7",
+    "date-fns": "^4.1.0",
+    "framer-motion": "^12.23.6",
     "http-proxy": "^1.18.1",
+    "lottie-react": "^2.4.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-hot-toast": "^2.5.2",
     "react-player": "^3.0.0",
     "react-router-dom": "^7.6.3",
+    "sweetalert2": "^11.6.13",
     "tailwindcss": "^4.1.11"
   },
   "devDependencies": {
