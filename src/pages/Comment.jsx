@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "../axios";
-// import axios from "axios"
+// import axios from "axios";
 import CommentLikeButton from "../components/CommentLikeButton";
+import Authprovider from "../authcontextapi/Authprovider";
 import Authcontext from "../authcontextapi/Authcontext";
 
 function Comment({ videoId }) {
   const [comments, setcomments] = useState([]);
   const [newcomment, setnewcomment] = useState("");
   const { user } = useContext(Authcontext);
-
 
   const fetchcomments = async () => {
     try {
@@ -19,9 +19,12 @@ function Comment({ videoId }) {
       console.log(error, "fetch comments failed");
     }
   };
-    const deletecomment = async (commentId) => {
+
+  //1
+  const deletecomment = async (commentId) => {
     try {
-      await axios.delete(`/api/v1/comments/${commentId}`, {
+      await axios.delete(`/comments/${commentId}`, {
+      // await axios.delete(`api/v1/comments/${commentId}`, {
         withCredentials: true,
       });
       fetchcomments();
@@ -80,6 +83,7 @@ function Comment({ videoId }) {
               <p className="text-sm font-semibold text-gray-800 dark:text-gray-200">
                 {comment.owner.username}
               </p>
+                 
               <div className="relative bg-gray-100 dark:bg-neutral-800 p-4 rounded-xl shadow-sm space-y-3">
                 {user && comment.owner._id === user._id && (
                   <button
