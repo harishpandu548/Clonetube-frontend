@@ -11,7 +11,8 @@ function Yourvideos() {
 
   const fetchvideos = async () => {
     try {
-      const res = await axios.get("/api/v1/videos/myvideos", {
+      const res = await axios.get("/videos/myvideos", {
+    //   const res = await axios.get("/api/v1/videos/myvideos", {
         withCredentials: true,
       });
       setvidoes(res.data.data);
