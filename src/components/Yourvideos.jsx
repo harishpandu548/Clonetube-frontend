@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "../axios"
+// import axios from "axios";
 import Videocard from "../pages/home/Videocard";
 import Swal from "sweetalert2";
 
@@ -12,7 +13,7 @@ function Yourvideos() {
   const fetchvideos = async () => {
     try {
       const res = await axios.get("/videos/myvideos", {
-    //   const res = await axios.get("/api/v1/videos/myvideos", {
+      // const res = await axios.get("/api/v1/videos/myvideos", {
         withCredentials: true,
       });
       setvidoes(res.data.data);

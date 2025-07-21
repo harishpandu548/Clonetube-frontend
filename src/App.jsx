@@ -16,6 +16,9 @@ import WatchHistory from "./components/WatchHistory";
 import Authcontext from "./authcontextapi/Authcontext";
 import NotFound from "./components/NotFound";
 import Yourvideos from "./components/Yourvideos";
+import PremiumPage from "./components/PremiumPage";
+import UpgradeProcessing from "./components/UpgradeProcessing";
+import SearchPage from "./components/SearchPage";
 // import SearchResults from "./components/SearchResults";
 
 function App() {
@@ -51,9 +54,11 @@ function App() {
           <Route path="/dashboard" element={<DashBoard />} />
           <Route path="/createplaylist" element={<CreatePlaylist />} />
           <Route path="/watchhistory" element={<WatchHistory />} />
-          <Route path="/yourvideos" element={<Yourvideos/>}/>
+          <Route path="/yourvideos" element={<Yourvideos />} />
           <Route path="*" element={<NotFound />} />
-          {/* <Route path="search" element={<SearchResults/>} /> */}
+          <Route path="premiumpage" element={<PremiumPage/>} />
+          <Route path="upgrading" element={<UpgradeProcessing/>} />
+          <Route path="/search" element={<SearchPage />} />
         </Routes>
       </main>
     </div>

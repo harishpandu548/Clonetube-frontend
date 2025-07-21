@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import axios from "../axios";
 // import axios from "axios";
 import CommentLikeButton from "../components/CommentLikeButton";
-import Authprovider from "../authcontextapi/Authprovider";
+// import Authprovider from "../authcontextapi/Authprovider";
 import Authcontext from "../authcontextapi/Authcontext";
 
 function Comment({ videoId }) {
