@@ -11,7 +11,16 @@ import AvatarModal from "./AvatarModal";
 function Navbar({ darkMode, setDarkMode }) {
   const { user, setuser } = useContext(Authcontext);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [searchTerm,setSearchTerm]=useState("")
   const navigate = useNavigate();
+
+  const handleSearch=(e)=>{
+    e.preventDefault()
+    if(searchTerm.trim()!==""){
+      navigate(`/search?query=${searchTerm.trim()}`)
+      setSearchTerm("")
+    }
+  }
 
   const handleLogout = async () => {
     const result = await Swal.fire({
@@ -67,6 +76,10 @@ function Navbar({ darkMode, setDarkMode }) {
                 </span>
               </Link>
             </div>
+            <form onSubmit={handleSearch}>
+              <input type="text" value={searchTerm} onChange={(e)=>setSearchTerm(e.target.value)} />
+              <button type="submit">Search</button>
+            </form>
           </div>
 
           <div className="flex items-center gap-4 flex-wrap">
