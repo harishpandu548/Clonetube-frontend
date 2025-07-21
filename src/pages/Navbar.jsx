@@ -7,7 +7,7 @@ import Sidebar from "../components/Sidebar";
 import Authcontext from "../authcontextapi/Authcontext";
 import Swal from "sweetalert2";
 import AvatarModal from "./AvatarModal";
-import SearchBar from "../components/Searchbar";
+import SearchBar from "../components/SearchBar";
 
 function Navbar({ darkMode, setDarkMode }) {
   const { user, setuser } = useContext(Authcontext);
