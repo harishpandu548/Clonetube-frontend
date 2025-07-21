@@ -16,7 +16,7 @@ import WatchHistory from "./components/WatchHistory";
 import Authcontext from "./authcontextapi/Authcontext";
 import NotFound from "./components/NotFound";
 import Yourvideos from "./components/Yourvideos";
-import SearchResults from "./components/SearchResults";
+// import SearchResults from "./components/SearchResults";
 
 function App() {
   const { user } = useContext(Authcontext);
@@ -53,7 +53,7 @@ function App() {
           <Route path="/watchhistory" element={<WatchHistory />} />
           <Route path="/yourvideos" element={<Yourvideos/>}/>
           <Route path="*" element={<NotFound />} />
-          <Route path="search" element={<SearchResults/>} />
+          {/* <Route path="search" element={<SearchResults/>} /> */}
         </Routes>
       </main>
     </div>
